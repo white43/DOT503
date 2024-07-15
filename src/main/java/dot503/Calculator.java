@@ -17,8 +17,18 @@ public class Calculator {
         return String.valueOf(a - b);
     }
 
+    @GetMapping("/multiplication/{a}/{b}")
+    public String Multiplication(@PathVariable Integer a, @PathVariable Integer b) {
+        return String.valueOf(a * b);
+    }
+
+    @GetMapping("/division/{a}/{b}")
+    public String Division(@PathVariable Float a, @PathVariable Float b) {
+        return String.valueOf(a / b);
+    }
+
     @GetMapping("/power/{a}/{b}")
-    public String Power(@PathVariable("a") Integer a, @PathVariable Integer b) {
+    public String Power(@PathVariable Integer a, @PathVariable Integer b) {
         return String.valueOf(Math.pow(Double.valueOf(a), Double.valueOf(b)));
     }
 };
