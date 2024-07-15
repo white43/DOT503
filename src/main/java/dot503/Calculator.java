@@ -16,4 +16,9 @@ public class Calculator {
     public String Substraction(@PathVariable Integer a, @PathVariable Integer b) {
         return String.valueOf(a - b);
     }
+
+    @GetMapping("/multiplication/{a}/{b}")
+    public String Multiplication(@PathVariable Integer a, @PathVariable Integer b) {
+        return String.valueOf(a * b);
+    }
 };
