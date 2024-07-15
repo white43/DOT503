@@ -26,4 +26,9 @@ public class Calculator {
     public String Division(@PathVariable Float a, @PathVariable Float b) {
         return String.valueOf(a / b);
     }
+
+    @GetMapping("/power/{a}/{b}")
+    public String Power(@PathVariable Integer a, @PathVariable Integer b) {
+        return String.valueOf(Math.pow(Double.valueOf(a), Double.valueOf(b)));
+    }
 };
