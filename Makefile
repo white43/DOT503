@@ -7,9 +7,8 @@ code-style-check:
 code-style-fix:
 	./gradlew spotlessJavaApply
 
-
 static-analysis:
-	# TODO
+	./gradlew pmdMain
 
 unit-tests:
 	./gradlew test
