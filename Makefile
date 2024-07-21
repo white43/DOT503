@@ -1,3 +1,5 @@
+is_running = $(shell docker ps | grep dot503 | wc -l)
+
 self-check:
 	./gradlew --version
 
@@ -23,7 +25,11 @@ build-image:
 	docker build -t dot503:latest .
 
 run-image:
-	docker run --rm -p 8088:8088 dot503:latest
+ifneq ($(is_running), 0)
+	docker stop dot503
+endif
+
+	docker run --rm -p 8088:8088 --name dot503 dot503:latest
 
 clean:
 	rm -rf ./build/*
