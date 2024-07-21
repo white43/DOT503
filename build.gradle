@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.1'
+    id "com.diffplug.spotless" version "7.0.0.BETA1"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -21,6 +22,13 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
 }
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
 
 test {
     useJUnitPlatform()

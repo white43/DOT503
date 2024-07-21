@@ -1,8 +1,12 @@
 self-check:
 	./gradlew --version
 
-code-style:
-	# TODO
+code-style-check:
+	./gradlew spotlessJavaCheck
+
+code-style-fix:
+	./gradlew spotlessJavaApply
+
 
 static-analysis:
 	# TODO
