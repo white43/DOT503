@@ -46,7 +46,7 @@ Make Commands
 
 This project comes with a predefined list of make commands that simplify and streamline the development process, by
 hiding underlying gradlew calls for those who is not familiar with Gradle. Windows users are encouraged to run
-Gradle commands.
+Gradle commands, as the make commands are not compatible with the Windows environment.
 
 * make self-check (gradlew --version) -- ensures that the main dependencies (Java and Gradle) are installed
 * make code-style-check (gradlew spotlessJavaCheck) -- runs Spotless code style checks. This command only validates
