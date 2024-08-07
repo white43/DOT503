@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Build Jar') {
             steps {
-                sh './gradlew bootJat'
+                sh './gradlew bootJar'
             }
         }
     }
