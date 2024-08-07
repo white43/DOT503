@@ -30,7 +30,7 @@ class CalculatorTests {
 
   @Test
   void division() {
-    assertEquals("0.0", calculator.Division((float) 2, (float) 0));
+    assertEquals("Infinity", calculator.Division((float) 2, (float) 0));
     assertEquals("2.0", calculator.Division((float) 2, (float) 1));
     assertEquals("0.5", calculator.Division((float) 1, (float) 2));
     assertEquals("-2.0", calculator.Division((float) -2, (float) 1));
@@ -41,6 +41,6 @@ class CalculatorTests {
     assertEquals("1.0", calculator.Power(3, 0));
     assertEquals("3.0", calculator.Power(3, 1));
     assertEquals("9.0", calculator.Power(3, 2));
-    assertEquals("-2.0", calculator.Power(3, (float) 1. / 2).substring(0, 7));
+    assertEquals("1.73205", calculator.Power(3, (float) 1. / 2).substring(0, 7));
   }
 }
