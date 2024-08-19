@@ -1,0 +1,45 @@
+- hosts: dot503-builder
+
+  become: true
+  vars:
+    username: ubuntu
+
+  tasks:
+    - name: Create Directory for Builder
+      file:
+        path: /opt/builder
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0755'
+
+    - name: Create Jenkins' Home Directory
+      file:
+        path: /opt/builder/home
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0755'
+
+    - name: Copy Dockerfile
+      copy:
+        src: Dockerfile
+        dest: /opt/builder/Dockerfile
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    - name: Build Jenkins Image with Docker Inside
+      community.docker.docker_image_build:
+        name: jenkins/jenkins:lts-alpine-jdk21-with-docker
+        path: /opt/builder
+        rebuild: always
+
+    - name: Launch Jenkins Container
+      community.docker.docker_container:
+        name: jenkins
+        image: jenkins/jenkins:lts-alpine-jdk21-with-docker
+        state: started
+        published_ports: "80:8080"
+        volumes:
+          - /opt/builder/home:/var/jenkins_home
+          - /var/run/docker.sock:/var/run/docker.sock
