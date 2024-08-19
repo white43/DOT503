@@ -1,6 +1,7 @@
 .gradle
 build/
 infrastructure/builder/home/
+infrastructure/ssh/dot503*
 !gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

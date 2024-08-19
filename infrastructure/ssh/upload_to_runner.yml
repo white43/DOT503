@@ -1,0 +1,16 @@
+- hosts: dot503-runner
+
+  become: true
+  vars:
+    username: ubuntu
+
+  tasks:
+    - name: Copy generated public key
+      set_fact:
+        local_file_contents: "{{ lookup('file', 'dot503.pub') }}"
+
+    - name: Add public key to the list of authorized keys
+      lineinfile:
+        path: "/home/{{ username }}/.ssh/authorized_keys"
+        line: "{{ local_file_contents }}"
+        state: present

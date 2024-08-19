@@ -1,0 +1,34 @@
+- hosts: dot503-builder
+
+  become: true
+  vars:
+    username: ubuntu
+
+  tasks:
+    - name: Create .ssh directory on the builder
+      file:
+        path: /opt/builder/home/.ssh
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0755'
+
+    - name: Copy private file
+      copy:
+        src: dot503
+        dest: /opt/builder/home/.ssh/dot503
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: 0600
+
+    - name: Create SSH config file
+      copy:
+        content: |
+          Host dot503-runner
+          HostName			3.107.89.152
+          User				ubuntu
+          PreferredAuthentications	publickey
+          IdentityFile			~/.ssh/dot503
+        dest: /opt/builder/home/.ssh/config
+        owner: "{{ username }}"
+        group: "{{ username }}"

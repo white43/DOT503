@@ -1,5 +1,10 @@
 is_running = $(shell docker ps | grep dot503 | wc -l)
 
+ssh-keys:
+	ssh-keygen -t ed25519 -f infrastructure/ssh/dot503 -N ""
+	ansible-playbook infrastructure/ssh/upload_to_runner.yml
+	ansible-playbook infrastructure/ssh/upload_to_builder.yml
+
 configure-builder:
 	ansible-playbook infrastructure/builder/install.yml
 
