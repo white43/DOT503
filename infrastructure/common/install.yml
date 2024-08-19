@@ -1,4 +1,5 @@
-- hosts: dot503-builder
+- name: Install base packages and perform initial configuration
+  hosts: dot503
 
   become: true
   vars:

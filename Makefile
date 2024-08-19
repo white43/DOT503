@@ -5,14 +5,11 @@ ssh-keys:
 	ansible-playbook infrastructure/ssh/upload_to_runner.yml
 	ansible-playbook infrastructure/ssh/upload_to_builder.yml
 
-configure-builder:
-	ansible-playbook infrastructure/builder/install.yml
+configure-servers:
+	ansible-playbook -i infrastructure/common/inventory.ini infrastructure/common/install.yml
 
 configure-jenkins:
 	ansible-playbook infrastructure/builder/jenkins.yml
-
-configure-runner:
-	ansible-playbook infrastructure/runner/install.yml
 
 self-check:
 	./gradlew --version
