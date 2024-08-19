@@ -31,6 +31,11 @@ pipeline {
                 sh 'make build-image'
             }
         }
+        stage('Push Docker Image') {
+            steps {
+                sh 'make push-image'
+            }
+        }
     }
     post {
         always {

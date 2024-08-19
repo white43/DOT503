@@ -33,6 +33,9 @@ clean-build-jar: clean unit-tests
 build-image:
 	docker build -t invidia/dot503:latest .
 
+push-image:
+	docker push invidia/dot503:latest
+
 run-image:
 ifneq ($(is_running), 0)
 	docker stop dot503
