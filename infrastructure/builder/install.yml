@@ -1,0 +1,51 @@
+- hosts: dot503-builder
+
+  become: true
+  vars:
+    username: ubuntu
+
+  tasks:
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - bash-completion
+          - ca-certificates
+          - docker-ce
+          - neovim
+        state: latest
+
+    - name: Add current user to docker group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: docker
+        append: yes
+
+    - name: Set neovim as default editor
+      ansible.builtin.file:
+        src: /usr/bin/nvim
+        dest: /etc/alternatives/editor
+        state: link
+
+    - name: Disable password authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
