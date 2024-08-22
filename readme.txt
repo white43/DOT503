@@ -1,5 +1,5 @@
-The DOT503 Project
-------------------
+1. The DOT503 Project
+------------------------------------------------------------------------------------------
 
 This project's aim it to show the supremacy of modern approaches in software development, namely Continuous
 Integration along with tools that ensure software quality. Among the tools, that included in this project:
@@ -17,32 +17,33 @@ Integration along with tools that ensure software quality. Among the tools, that
   tests for their Java code, ensuring it meets the required functionality and behavior.
   See more at https://junit.org/junit5/docs/current/user-guide/
 
-Operating Systems
------------------
+2. Operating Systems
+------------------------------------------------------------------------------------------
 
 This project aims to be run on Linux (including WSL) and, probably, on macOS. It still can be run on Windows with
 some limitations, though. For example, instead of using make commands, one will need to call gradlew.bat (see make
 commands below).
 
-Dependencies
-------------
+3. Dependencies
+------------------------------------------------------------------------------------------
 
 In your development environment, the following list of tools needs to be installed:
 
 * Java 21+
 * Docker
 * Make
+* ssh-keygen
 
-Clone Project
--------------
+4. Clone Project
+------------------------------------------------------------------------------------------
 
 To start working with the project, it needs to be cloned on your local computer. To do so we need to execute the
 following command in terminal.
 
 git clone git@github.com:white43/DOT503.git
 
-Make Commands
--------------
+5. Make Commands
+------------------------------------------------------------------------------------------
 
 This project comes with a predefined list of make commands that simplify and streamline the development process, by
 hiding underlying gradlew calls for those who is not familiar with Gradle. Windows users are encouraged to run
@@ -58,6 +59,16 @@ Gradle commands, as the make commands are not compatible with the Windows enviro
     in Docker
 * make build-image (docker build -t dot503:latest .) -- creates a docker image (see Dockerfile) that can be
     uploaded to a docker registry and run in the production, stage, or development environments
+* make push-image -- Pushed build image with the app to Docker Hub. This step requires authentication against
+    Docker Hub INSIDE of the running Jenkins container.
 * make run-image (docker run --rm -p 8088:8088 --name dot503 dot503:latest) -- starts a container from the docker
     image created earlier
+* make deploy -- Stops running application, pull a new image, and runs it on the runner host
 * make clean (rm -rf ./build/*) -- deletes temporarily files to perform a clean build
+* make ssh-keys -- Using the ssh-keygen command generate a pair of keys. Then upload public key to the runner node
+    and private key to the builder node.
+* make configure-servers -- For this command, we need to provision two virtual servers. First server with 2 GB of
+    memory (dot503-builder) and second with 0.5 GB of memory (dot503-runner). These servers should be added to the
+    SSH config files under the above names. This command was tested on Ubuntu images on AWS.
+* make configure-jenkins -- This command deploys a custom build Jenkins images with Docker inside. Inner Docker
+    communicates with the Docker on the host machine through socket file, which is mounted to the jenkins container.
