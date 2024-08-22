@@ -46,7 +46,7 @@ endif
 	docker run --rm -p 8088:8088 --name dot503 invidia/dot503:latest
 
 deploy:
-	ssh ubuntu@dot503-runner 'docker pull invidia/dot503:latest && docker stop dot503 && docker rm dot503 && docker run -d --rm -p 80:8088 --name dot503 invidia/dot503:latest'
+	ssh ubuntu@dot503-runner 'docker pull invidia/dot503:latest && docker stop dot503 && docker rm dot503 && docker run -d -p 80:8088 --name dot503 --restart always invidia/dot503:latest'
 
 clean:
 	rm -rf ./build/*
