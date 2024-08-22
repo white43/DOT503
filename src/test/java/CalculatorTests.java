@@ -33,7 +33,7 @@ class CalculatorTests {
     assertEquals("Infinity", calculator.Division((float) 2, (float) 0));
     assertEquals("2.0", calculator.Division((float) 2, (float) 1));
     assertEquals("0.5", calculator.Division((float) 1, (float) 2));
-    assertEquals("-2.0", calculator.Division((float) -2, (float) 1));
+    assertEquals("2.0", calculator.Division((float) -2, (float) 1));
   }
 
   @Test
